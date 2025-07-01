@@ -46,7 +46,7 @@ graph TD
 | :--- | :--- | :--- |
 | **Frontend** | Blazor WebAssembly | Rich, interactive C#-based web UI. |
 | | Tailwind CSS | Utility-first CSS framework for rapid UI development. |
-| **Backend** | ASP.NET Core 8 Web API | High-performance API for handling business logic. |
+| **Backend** | ASP.NET Core 9 Web API | High-performance API for handling business logic. |
 | | C# 12 | Modern, powerful language for the entire stack. |
 | **AI/Orchestration** | Semantic Kernel | Microsoft's SDK for orchestrating AI plugins and memory. |
 | | Ollama | Runs open-source LLMs locally for embeddings and chat. |
@@ -151,7 +151,7 @@ The solution is organized into three distinct projects for a clean separation of
 
 ---
 
-# NOTE: This project is designed to run entirely on your local machine. The AI Models require a fast and powerful computer for quick responses. It does not require any cloud services or external APIs, ensuring complete data privacy and control.
+**NOTE: This project is designed to run entirely on your local machine. The AI Models require a fast and powerful computer for quick responses. It does not require any cloud services or external APIs, ensuring complete data privacy and control.**
 
 ## 📞 Contact
 
