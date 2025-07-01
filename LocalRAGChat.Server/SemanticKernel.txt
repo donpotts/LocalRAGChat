@@ -1,0 +1,11 @@
+Semantic Kernel (SK) is a lightweight, open-source SDK from Microsoft designed to help developers build AI agents and infuse applications with the capabilities of Large Language Models (LLMs). 
+Here's a brief breakdown of what it is and what it does:
+Integration of LLMs: SK makes it easy to integrate AI services like OpenAI with traditional programming languages like C#, Python, or Java.
+AI-First Application Development: It provides a framework for building applications where AI is a core component, enabling features like reasoning, decision-making, and automation.
+Modular and Extensible: SK's modular design allows you to add existing code as plugins and leverage out-of-the-box connectors for integrating AI services flexibly.
+AI Orchestration: SK extends LLM capabilities with AI Orchestration, allowing the blending of LLMs with external services, databases, and tools to create complex workflows.
+Reusable Semantic Functions: You can define reusable functions that interact with both LLMs and external systems, simplifying the deployment of complex AI-driven workflows.
+Enterprise-Ready: SK is designed for enterprise-grade solutions, offering features like telemetry support and security-enhancing capabilities.
+Future-Proof: It is designed to be model-agnostic, allowing you to easily swap out or connect to the latest AI models without needing to rewrite your code.
+Cross-Platform Support: SK supports popular languages like .NET, Python, and Java, making it accessible to developers with various backgrounds. 
+In simpler terms: Semantic Kernel acts as a bridge between your existing code and powerful AI models, enabling you to build intelligent applications and automate tasks by orchestrating interactions between these components. 

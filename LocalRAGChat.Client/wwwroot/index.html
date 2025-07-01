@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalRAGChat.Client</title>
+    <base href="/" />
+    <link href="css/app.output.css" rel="stylesheet" />
+    <link href="LocalRAGChat.Client.styles.css" rel="stylesheet" />
+
+    <!-- CSS to hide the error UI by default -->
+    <style>
+        #blazor-error-ui {
+            background: rgba(17, 24, 39, 0.9); /* bg-gray-900 with opacity */
+            color: white;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+            #blazor-error-ui .dismiss {
+                cursor: pointer;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+        .blazor-error-ui-visible {
+            display: flex; /* Use flex to center the content */
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900">
+    <!--
+        The #app div is where Blazor will render your application.
+        The content inside it is ONLY visible during the initial load.
+        We'll put a custom, themed loading indicator here.
+    -->
+    <div id="app">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+            <!-- Tailwind CSS Spinner -->
+            <div class="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-blue-500 motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+            </div>
+            <p style="margin-top: 1rem; font-size: 1.125rem; color: #D1D5DB;">Loading RAG Chat...</p>
+        </div>
+    </div>
+
+    <!--
+        This is the "safety net" UI. It's hidden by default.
+        Blazor will automatically show it if a catastrophic, unrecoverable
+        error occurs during startup (e.g., failed to download .NET).
+        We've styled it to match the dark theme.
+    -->
+    <div id="blazor-error-ui">
+        <div class="text-center p-8 bg-gray-800 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-bold text-red-500">An unhandled error has occurred.</h3>
+            <p class="mt-2 text-gray-300">An error occurred while starting the application.</p>
+            <a href="" class="reload mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
+    </div>
+
+    <!--
+        It's best practice to load the framework script first,
+        then your custom JavaScript files.
+    -->
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
