@@ -36,7 +36,7 @@ graph TD
     end
 
     B -- HTTP API Requests --> C;
-    C -- Ingest/Store/Retrieve --> D[localragchat.db];
+    C -- Ingest/Store/Retrieve --> D[localrag.db];
     C -- Generate Embeddings & Chat Completions --> E["Ollama (nomic-embed-text, llama3, etc.)"];
 ```
 
@@ -60,7 +60,7 @@ graph TD
 
 Before you begin, ensure you have the following installed:
 
-1.  **.NET 8 SDK**: [Download here](https://dotnet.microsoft.com/download/dotnet/8.0)
+1.  **.NET 9 SDK**: [Download here](https://dotnet.microsoft.com/download/dotnet/9.0)
 2.  **Node.js and npm**: [Download here](https://nodejs.org/) (Required for Tailwind CSS)
 3.  **Ollama**: [Install from ollama.com](https://ollama.com)
 
@@ -151,7 +151,7 @@ The solution is organized into three distinct projects for a clean separation of
 
 ---
 
-## NOTE: This project is designed to run entirely on your local machine. The AI Models require a fast and powerful computer for quick responses. It does not require any cloud services or external APIs, ensuring complete data privacy and control.
+# NOTE: This project is designed to run entirely on your local machine. The AI Models require a fast and powerful computer for quick responses. It does not require any cloud services or external APIs, ensuring complete data privacy and control.
 
 ## 📞 Contact
 
