@@ -41,17 +41,18 @@ else
             <!-- Sidebar -->
             <div class="w-1/3 bg-gray-800 p-4 flex flex-col border-r border-gray-700">
                 <h2 class="text-lg font-semibold mb-2 flex-shrink-0">Controls</h2>
-    
                 <!-- File Upload Section -->
                 <div class="mb-4 flex-shrink-0">
-                    <label class="block mb-2 text-sm font-medium text-gray-300" for="file_input">Upload PDF or TXT</label>
-                    <InputFile id="file_input" OnChange="HandleFileSelected" class="block w-full text-sm text-gray-400 border border-gray-600 rounded-lg cursor-pointer bg-gray-700 focus:outline-none" />
+                    <label class="block mb-2 text-sm font-medium text-gray-300">Upload PDF or TXT</label>
+                    <label for="file_input" class="block w-full text-sm text-gray-400 border border-gray-600 rounded-lg cursor-pointer bg-gray-700 hover:bg-gray-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 p-3 text-center transition-colors">
+                        <span>Click to select file for upload</span>
+                        <InputFile id="file_input" OnChange="HandleFileSelected" class="hidden" />
+                    </label>
                     @if (!string.IsNullOrEmpty(statusMessage))
                     {
                         <p class="mt-2 text-sm @(isError ? "text-red-400" : "text-green-400")">@statusMessage</p>
                     }
                 </div>
-    
                 <!-- Document List Section (This part scrolls) -->
                 <div class="flex-1 overflow-y-auto min-h-0 pr-2">
                     <h3 class="text-md font-semibold mb-2">Available Documents</h3>
@@ -174,6 +175,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         Http = HttpClientFactory.CreateClient("Api");
+        Http.Timeout = TimeSpan.FromMinutes(5);
         await LoadInitialDataAsync();
     }
 
