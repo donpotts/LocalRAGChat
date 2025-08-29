@@ -50,7 +50,7 @@ graph TD
 | | C# 12 | Modern, powerful language for the entire stack. |
 | **AI/Orchestration** | Semantic Kernel | Microsoft's SDK for orchestrating AI plugins and memory. |
 | | Ollama | Runs open-source LLMs locally for embeddings and chat. |
-| **Database** | Entity Framework Core 8 | ORM for interacting with the database. |
+| **Database** | Entity Framework Core 9 | ORM for interacting with the database. |
 | | SQLite | Lightweight, serverless, file-based database for local storage. |
 | **Data Parsing**| PdfPig | Extracts text from PDF documents. |
 | | CsvHelper | Parses CSV files for initial database seeding. |
