@@ -94,7 +94,7 @@ else
             <!-- Main Chat Area -->
             <main class="w-2/3 flex flex-col">
                 <!-- Chat Messages (This part scrolls) -->
-                <div id="chat-container" class="flex-1 p-6 overflow-y-auto min-h-0">
+                <div @ref="chatContainerRef" id="chat-container" class="flex-1 p-6 overflow-y-auto min-h-0">
                     @if (selectedDocument == null)
                     {
                         <div class="flex items-center justify-center h-full">
@@ -148,10 +148,10 @@ else
 
 @code {
     private HttpClient Http = default!;
-    private bool _shouldScrollToBottom = false;
+    private ElementReference textAreaRef;
+    private ElementReference chatContainerRef;
     private bool _isLoadingInitialData = true;
     private string? _initialDataError;
-    private ElementReference textAreaRef;
     private List<DocumentDto> documents = new();
     private DocumentDto? selectedDocument;
     private List<ChatMessage> chatHistory = new();
@@ -165,10 +165,10 @@ else
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (_shouldScrollToBottom)
+        // Always scroll to bottom after render if there are messages
+        if (chatHistory.Any())
         {
-            _shouldScrollToBottom = false;
-            await JSRuntime.InvokeVoidAsync("scrollToElementBottom", "chat-container");
+            await ScrollToBottom();
         }
     }
 
@@ -179,6 +179,20 @@ else
         await LoadInitialDataAsync();
     }
 
+    private async Task ScrollToBottom()
+    {
+        try
+        {
+            // Use a small delay to ensure DOM is updated
+            await Task.Delay(50);
+            await JSRuntime.InvokeVoidAsync("scrollToElementBottom", "chat-container");
+        }
+        catch (Exception)
+        {
+            // Ignore any JS interop errors
+        }
+    }
+
     private async Task LoadInitialDataAsync()
     {
         _isLoadingInitialData = true;
@@ -187,7 +201,9 @@ else
 
         try
         {
+            documents.Clear();
             documents = await Http.GetFromJsonAsync<List<DocumentDto>>("api/documents") ?? new();
+            availableModels.Clear();
             availableModels = await Http.GetFromJsonAsync<List<string>>("api/chat/models") ?? new();
             if (availableModels.Any()) { selectedModel = availableModels.First(); }
         }
@@ -202,14 +218,15 @@ else
         }
     }
 
-
-    private void SelectDocument(DocumentDto doc)
+    private async Task SelectDocument(DocumentDto doc)
     {
         if (selectedDocument?.Id != doc.Id)
         {
             selectedDocument = doc;
             chatHistory.Clear();
             chatHistory.Add(new ChatMessage { Sender = "AI", Text = $"Selected document: '{doc.FileName}'. What would you like to know?", Timestamp = DateTime.Now });
+            StateHasChanged();
+            await ScrollToBottom();
         }
     }
 
@@ -232,7 +249,7 @@ else
                 var newDoc = await response.Content.ReadFromJsonAsync<DocumentDto>();
                 if (newDoc != null) {
                     documents.Insert(0, newDoc);
-                    SelectDocument(newDoc);
+                    await SelectDocument(newDoc);
                 }
                 statusMessage = $"'{file.Name}' ingested successfully.";
             }
@@ -258,8 +275,11 @@ else
 
         currentQuestion = "";
         isWaitingForResponse = true;
+        
+        // Add user message and scroll
         chatHistory.Add(new ChatMessage { Sender = "You", Text = questionToSend, Timestamp = DateTime.Now });
         StateHasChanged();
+        await ScrollToBottom();
 
         try
         {
@@ -269,7 +289,9 @@ else
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<AnswerResponse>();
-                chatHistory.Add(new ChatMessage { Sender = "AI", Text = result?.Answer ?? "...", Timestamp = DateTime.Now });
+                var answer = result?.Answer ?? "...";
+                
+                chatHistory.Add(new ChatMessage { Sender = "AI", Text = answer, Timestamp = DateTime.Now });
             }
             else
             {
@@ -283,8 +305,8 @@ else
         finally
         {
             isWaitingForResponse = false;
-            _shouldScrollToBottom = true;
             StateHasChanged();
+            await ScrollToBottom();
             await textAreaRef.FocusAsync();
         }
     }
